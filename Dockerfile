@@ -3,17 +3,14 @@ FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependency definitions
-COPY go.mod go.sum ./
-RUN go mod download
-
-# Copy source code
+# Copy all source files
 COPY . .
 
-# Build lightweight binary (CGO_ENABLED=0 for pure Go compilation)
+# Download dependencies and build binary
+RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o main ./cmd/api
 
-# Final Stage
+# Final Runtime Stage
 FROM alpine:latest
 
 WORKDIR /app
