@@ -15,7 +15,7 @@ A lightweight, robust RESTful API backend service for a ticket management system
 
 ## Submission Details
 
-- **GitHub Repository**: `[YOUR_GITHUB_REPO_URL_HERE]`
+- **GitHub Repository**: `https://github.com/Ashutosh437/Ticket-Booking`
 - **Deployed Application URL**: `[YOUR_DEPLOYED_APP_URL_HERE]`
 - **Public Health Check URL**: `[YOUR_DEPLOYED_APP_URL_HERE]/health`
 
@@ -48,8 +48,8 @@ A lightweight, robust RESTful API backend service for a ticket management system
 ### 1. Run Directly with Go
 ```bash
 # Clone the repository
-git clone <YOUR_GITHUB_REPO_URL>
-cd ticket-system
+git clone https://github.com/Ashutosh437/Ticket-Booking.git
+cd Ticket-Booking
 
 # Run the server
 go run cmd/api/main.go
@@ -88,21 +88,10 @@ curl http://localhost:8080/health
 
 You can easily deploy this container to **Render** for free in under 3 minutes (no credit card required).
 
-### Step 1: Push Code to GitHub
-Open your terminal in the project directory and run:
-```bash
-git init
-git add .
-git commit -m "Initial commit - Ticket System API"
-git branch -M main
-git remote add origin https://github.com/<YOUR_USERNAME>/<YOUR_REPO_NAME>.git
-git push -u origin main
-```
-
-### Step 2: Deploy on Render
+### Step 1: Deploy on Render
 1. Visit [render.com](https://render.com) and click **Sign Up** (or Log In) using your GitHub account.
 2. On your Render Dashboard, click **New +** $\rightarrow$ Select **Web Service**.
-3. Connect your GitHub account and select your repository (`ticket-system`).
+3. Connect your GitHub account and select your repository (`Ticket-Booking`).
 4. Fill in the service configuration:
    - **Name**: `golang-ticket-system` (or any custom name)
    - **Language / Environment**: Select **Docker** (Render auto-detects the `Dockerfile`).
@@ -110,7 +99,7 @@ git push -u origin main
    - **Instance Type**: Select **Free**.
 5. Click **Create Web Service**.
 
-### Step 3: Copy Your Public Deployed URLs
+### Step 2: Copy Your Public Deployed URLs
 - Render will automatically compile your Docker image and deploy it.
 - Once deployed (takes ~1-2 minutes), Render will display your live public URL at the top of the page, for example:
   `https://golang-ticket-system.onrender.com`
@@ -121,4 +110,3 @@ Verify public health check:
 ```bash
 curl https://golang-ticket-system.onrender.com/health
 ```
-
