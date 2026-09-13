@@ -3,17 +3,17 @@ FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
-# Install git and SSL certificates for downloading dependencies
+# Install git and ca-certificates
 RUN apk add --no-cache git ca-certificates
 
 # Copy source code
 COPY . .
 
-# Ensure go.mod uses a standard supported Go version inside Docker
-RUN sed -i 's/^go 1\..*/go 1.22/' go.mod
+# Align go.mod version and synchronize checksums inside container
+RUN sed -i 's/^go 1\..*/go 1.22/' go.mod && go mod tidy
 
-# Download dependencies & compile static binary
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o main ./cmd/api
+# Build static Linux binary
+RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/api
 
 # Final Stage
 FROM alpine:latest
@@ -23,12 +23,12 @@ WORKDIR /app
 # Install runtime SSL certificates
 RUN apk --no-cache add ca-certificates
 
-# Copy compiled binary from builder
+# Copy compiled binary from builder stage
 COPY --from=builder /app/main .
 
 EXPOSE 8080
 
-# Default Environment Variables
+# Environment Defaults
 ENV PORT=8080
 ENV JWT_SECRET="super-secret-key-change-in-production"
 ENV DB_PATH="tickets.db"
