@@ -122,13 +122,3 @@ Verify public health check:
 curl https://golang-ticket-system.onrender.com/health
 ```
 
----
-
-## Automated Verification Script
-
-An automated test script `test_api.ps1` is included to verify all endpoints, ownership isolation, and invalid status flow rejections.
-
-To run tests:
-```powershell
-powershell -ExecutionPolicy Bypass -File .\test_api.ps1
-```
