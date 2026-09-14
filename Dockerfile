@@ -6,11 +6,12 @@ WORKDIR /app
 # Install git and ca-certificates
 RUN apk add --no-cache git ca-certificates
 
+# Copy dependency manifests and download modules
+COPY go.mod go.sum ./
+RUN go mod download
+
 # Copy source code
 COPY . .
-
-# Align go.mod version and synchronize checksums inside container
-RUN sed -i 's/^go 1\..*/go 1.22/' go.mod && go mod tidy
 
 # Build static Linux binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/api
