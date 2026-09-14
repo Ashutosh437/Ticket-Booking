@@ -44,6 +44,11 @@ func main() {
 	r.Use(chiMiddleware.Recoverer)
 
 	// Public Routes
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(`{"message":"Welcome to Ticket System API","status":"running","health_check":"/health"}`))
+	})
 	r.Get("/health", healthHandler.HealthCheck)
 	r.Post("/auth/register", authHandler.Register)
 	r.Post("/auth/login", authHandler.Login)
